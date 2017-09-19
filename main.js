@@ -8,7 +8,7 @@ var main = function (params) {
         uri:url,
         form:{body:params}
     }
-    request(url, function (error, response, body) {
+    request(options, function (error, response, body) {
       if (!error) {
         console.log(body);
       }
