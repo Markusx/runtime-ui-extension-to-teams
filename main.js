@@ -48,15 +48,15 @@ function submit(params) {
     
     
     
-    return getMetadata(assetName,imsToken);    
+    return getMetadata(assetName,ccApiKey, imsToken);    
 }
 
-function getMetadata(assetName, token) { 
+function getMetadata(assetName, ccApiKey, token) { 
     
 	return request({
 		"method":"GET", 
 		"uri": "https://cc-api-storage.adobe.io/files/" + assetName + "/:metadata", 
-		"headers": {"x-api-key": api_key, "Authorization":"Bearer "+token, "metadata":":metadata", "Accept": "application/vnd.adobe.file+json" }
+		"headers": {"x-api-key": ccApiKey, "Authorization":"Bearer "+token, "metadata":":metadata", "Accept": "application/vnd.adobe.file+json" }
         }).then(function(body) {
 			return {body:body};
 		});
