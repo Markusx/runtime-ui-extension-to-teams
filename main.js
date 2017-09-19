@@ -80,7 +80,7 @@ var main = function (params) {
         break;
             
         case ACTION_SUBMIT:
-            return submit(params);
+          //  return submit(params);
         break;
   
         case ACTION_ENCRYPT:
