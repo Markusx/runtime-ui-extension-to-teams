@@ -55,7 +55,7 @@ function getMetadata(assetName, ccApiKey, token) {
     
 	return request({
 		"method":"GET", 
-		"uri": "https://cc-us1-prod.adobesc.com/api/v1/mounts/" + assetName
+		"uri": "https://cc-us1-prod.adobesc.com/api/v1/mounts/" + assetName,
 		"headers": {"x-api-key": ccApiKey, "Authorization":"Bearer "+token, "metadata":":metadata", "Accept": "application/vnd.adobe.file+json" }
         }).then(function(body) {
 			return {body:body};
