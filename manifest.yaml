@@ -11,3 +11,7 @@ package:
         msTeamsWebhook:
           type: String
           description: webhook url from MS teams side      
+        ccApiKey:
+          type: String
+          description: creative cloud api key    
+
