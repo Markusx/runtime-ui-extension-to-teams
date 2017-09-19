@@ -1,0 +1,13 @@
+package:
+  name: ms-teams-integration
+  version: 1.0
+  license: Apache-2.0
+  actions:
+    line:
+      version: 1.0
+      location: main.js
+      runtime: nodejs@6
+      inputs:
+        msTeamsWebhook:
+          type: String
+          description: webhook url from MS teams side      
