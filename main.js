@@ -3,6 +3,8 @@ var ACTION_VALIDATE = "validate";
 var ACTION_SUBMIT =  "submit";
 var ACTION_ENCRYPT = "encrypt";
 
+var request = require('request-promise');
+
 function loadDialog() {
     
     return {
