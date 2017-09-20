@@ -48,17 +48,29 @@ function submit(params) {
     
     
     
-    return getMetadata(assetName,ccApiKey, imsToken);    
+    return getSharedLinkInformation(assetName,ccApiKey, imsToken);    
 }
 
-function getMetadata(assetName, ccApiKey, token) { 
+function getSharedLinkInformation(assetName, ccApiKey, token) { 
     
 	return request({
 		"method":"GET", 
 		"uri": "https://cc-api-storage.adobe.io/files/" + assetName + "/:metadata",
 		"headers": {"x-api-key": ccApiKey, "Authorization":"Bearer "+token, "metadata":":metadata", "Accept": "application/vnd.adobe.file+json" }
         }).then(function(body) {
-			return {body:body};
+		
+			var parsedBody = JSON.parse(body);
+			var id = parsedBody.id.split("/")[1];
+			
+			request({
+				"method":"GET",
+				"uri":"https://cc-collab.adobe.io/links/https://cc-us1-prod.adobesc.com/api/v1/assets/"+id,
+				"headers": {"x-api-key": ccApiKey, "Authorization":"Bearer "+token}
+			}).then( function(linkInformation) {
+				
+				return {links:linkInformation};
+			});
+		
 		});
 }
 
