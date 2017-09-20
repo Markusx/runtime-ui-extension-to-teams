@@ -62,14 +62,14 @@ function getSharedLinkInformation(assetName, ccApiKey, token) {
 			var parsedBody = JSON.parse(body);
 			var id = parsedBody.id.split("/")[1];
 			
-			request({
+			return request({
 				"method":"GET",
 				"uri":"https://cc-collab.adobe.io/links/https://cc-us1-prod.adobesc.com/api/v1/assets/"+id,
 				"headers": {"x-api-key": ccApiKey, "Authorization":"Bearer "+token}
-			}).then( function(linkInformation) {
-				
-				return {links:linkInformation};
-			});
+				}).then( function(linkInformation) {
+
+					return {links:linkInformation};
+				});
 		
 		});
 }
