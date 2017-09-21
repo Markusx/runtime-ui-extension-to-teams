@@ -92,6 +92,7 @@ function getSharedLinkInformation(assetName, ccApiKey, token, msTeamsWebhook, ad
                     return request({
                             "method":"POST",
                             "uri":msTeamsWebhook,
+                            "body":msTeamsCard,
                             "headers": {"Content-Type":"application/json"}
                             }).then( function(msResult) {
                     
