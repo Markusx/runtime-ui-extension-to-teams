@@ -48,10 +48,10 @@ function submit(params) {
     
     
     
-    return getSharedLinkInformation(assetName,ccApiKey, imsToken);    
+    return getSharedLinkInformation(assetName,ccApiKey, imsToken, msTeamsWebhook, params.additionalData);    
 }
 
-function getSharedLinkInformation(assetName, ccApiKey, token) { 
+function getSharedLinkInformation(assetName, ccApiKey, token, msTeamsWebhook, additionalData) { 
     
 	return request({
 		"method":"GET", 
@@ -68,8 +68,37 @@ function getSharedLinkInformation(assetName, ccApiKey, token) {
 				"headers": {"x-api-key": ccApiKey, "Authorization":"Bearer "+token}
 				}).then( function(linkInformation) {
 
-					return {links:linkInformation};
-				});
+                
+                    var parsedLink = JSON.parse(linkInformation);
+                
+                    var msTeamsCard = {
+                            "@type": "MessageCard",
+                            "@context": "http://schema.org/extensions",
+                            "summary": "New File Shared",
+                            "themeColor": "0078D7",
+                            "sections": [
+                            {
+                                "Title": "New file " + parsedLink.name + " shared via the Creative Cloud",
+                                "activitySubtitle": "subtitle",
+                                "activityImage": parsedLink.resources[0].renditions["500"],
+                                "activityText": additionalData.message,
+                                "facts":[
+                                    { "name": " ", "value": "[Open in Creative Cloud]("+parsedLink.publicURL+")" } 
+                                ]
+                            }
+                          ]
+                    }
+                    
+                    return request({
+                            "method":"POST",
+                            "uri":msTeamsWebhook,
+                            "headers": {"Content-Type":"application/json"}
+                            }).then( function(msResult) {
+                    
+                                return {msResult:msResult};
+                });
+				
+            });
 		
 		});
 }
