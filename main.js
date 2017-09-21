@@ -48,10 +48,10 @@ function submit(params) {
     
     
     
-    return getSharedLinkInformation(assetName,ccApiKey, imsToken, msTeamsWebhook, params.additionalData);    
+    return getSharedLinkInformation(assetName,ccApiKey, imsToken, msTeamsWebhook, params.additionalData, params.dialogData);    
 }
 
-function getSharedLinkInformation(assetName, ccApiKey, token, msTeamsWebhook, additionalData) { 
+function getSharedLinkInformation(assetName, ccApiKey, token, msTeamsWebhook, additionalData, dialogData) { 
     
 	return request({
 		"method":"GET", 
@@ -79,9 +79,8 @@ function getSharedLinkInformation(assetName, ccApiKey, token, msTeamsWebhook, ad
                             "sections": [
                             {
                                 "Title": "New file " + parsedLink.name + " shared via the Creative Cloud",
-                                "activitySubtitle": "subtitle",
                                 "activityImage": parsedLink.resources[0].renditions["500"],
-                                "activityText": additionalData.message,
+                                "activityText": dialogData.message,
                                 "facts":[
                                     { "name": " ", "value": "[Open in Creative Cloud]("+parsedLink.publicURL+")" } 
                                 ]
